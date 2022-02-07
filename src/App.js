@@ -59,7 +59,7 @@ function App() {
       {showEvents && <EventList handleClick={handleClick} events={events} />}
 
       {showModal && (
-        <Modal close={handleClose}>
+        <Modal close={handleClose} isSalesModal={true}>
           <h2>10% Off Coupon Code</h2>
           <p>Use the code QWERTY10 at checkout</p>
         </Modal>
