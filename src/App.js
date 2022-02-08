@@ -3,19 +3,15 @@ import { useState } from 'react';
 import Title from './components/Title';
 import Modal from './components/Modal';
 import EventList from './components/EventList';
+import NewEventForm from './components/NewEventForm';
 
 function App() {
   // Can only use hooks on the top level of a component (exception/customhooks)
   const [showModal, setShowModal] = useState(false);
   const [showEvents, setShowEvents] = useState(true);
   const [name, setName] = useState('Mario');
-  const [events, setEvents] = useState([
-    { title: "Mario's Bday", id: 1 },
-    { title: "Bowser's Bday", id: 2 },
-    { title: "Luigi's Bday", id: 3 },
-  ]);
-
-  // console.log(showModal);
+  const [events, setEvents] = useState([]);
+  
 
   // Function for clickEvent
   const clickEvent = () => {
@@ -35,6 +31,14 @@ function App() {
   };
 
   const handleClose = () => {
+    setShowModal(false);
+  };
+
+  // Add event
+  const addEvent = (event) => {
+    setEvents((prevEvents) => {
+      return [...prevEvents, event];
+    });
     setShowModal(false);
   };
 
@@ -59,9 +63,8 @@ function App() {
       {showEvents && <EventList handleClick={handleClick} events={events} />}
 
       {showModal && (
-        <Modal close={handleClose} isSalesModal={true}>
-          <h2>10% Off Coupon Code</h2>
-          <p>Use the code QWERTY10 at checkout</p>
+        <Modal close={handleClose} isSalesModal={false}>
+          <NewEventForm addEvent={addEvent} />
         </Modal>
       )}
     </div>
